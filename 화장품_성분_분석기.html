@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>화장품 성분 분석기</title>
+
+<style>
+    body {
+        font-family: "맑은 고딕", sans-serif;
+        margin: 0;
+        background-color: #f4f6f9;
+        color: #333;
+    }
+
+    header {
+        background: linear-gradient(135deg, #7F7FD5, #86A8E7, #91EAE4);
+        color: white;
+        text-align: center;
+        padding: 40px 20px;
+    }
+
+    main {
+        max-width: 900px;
+        margin: 30px auto;
+        padding: 20px;
+    }
+
+    .search-box {
+        text-align: center;
+        margin-bottom: 30px;
+    }
+
+    input {
+        width: 60%;
+        padding: 12px;
+        font-size: 16px;
+        border-radius: 10px;
+        border: 1px solid #ccc;
+    }
+
+    button {
+        padding: 12px 20px;
+        font-size: 16px;
+        border: none;
+        border-radius: 10px;
+        cursor: pointer;
+        background-color: #6c63ff;
+        color: white;
+    }
+
+    button:hover {
+        background-color: #564fd1;
+    }
+
+    .card {
+        background: white;
+        padding: 25px;
+        border-radius: 15px;
+        box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+        margin-top: 20px;
+    }
+
+    .badge {
+        display: inline-block;
+        padding: 5px 10px;
+        border-radius: 15px;
+        color: white;
+        font-size: 14px;
+        margin-bottom: 10px;
+    }
+
+    .safe { background-color: #4CAF50; }
+    .caution { background-color: #FF9800; }
+
+    footer {
+        text-align: center;
+        padding: 20px;
+        background-color: #6c63ff;
+        color: white;
+        margin-top: 50px;
+    }
+</style>
+</head>
+
+<body>
+
+<header>
+    <h1>🔍 화장품 성분 분석기</h1>
+    <p>자주 사용되는 화장품 성분의 역할과 주의사항을 알아보세요.</p>
+</header>
+
+<main>
+    <div class="search-box">
+        <input type="text" id="searchInput" placeholder="예: 히알루론산">
+        <button onclick="searchIngredient()">검색</button>
+    </div>
+
+    <div id="result" class="card">
+        검색할 성분명을 입력해 주세요.
+    </div>
+</main>
+
+<footer>
+    화학 교과와 실생활을 연계한 수행평가 프로젝트
+</footer>
+
+<script>
+const ingredients = {
+    "히알루론산": ["보습제", "피부 수분 유지", "특이사항 없음", "안전"],
+    "글리세린": ["보습제", "수분 증발 방지", "끈적임 가능", "안전"],
+    "세라마이드": ["장벽 강화", "피부 보호", "특이사항 없음", "안전"],
+    "판테놀": ["진정 성분", "피부 회복 도움", "특이사항 없음", "안전"],
+    "알로에베라": ["진정 성분", "자극 완화", "알레르기 주의", "안전"],
+    "나이아신아마이드": ["미백 성분", "피부 톤 개선", "고농도 자극 가능", "주의"],
+    "비타민C": ["항산화 성분", "색소 침착 완화", "민감 피부 따가움 가능", "주의"],
+    "레티놀": ["주름 개선", "피부 재생 촉진", "자극 및 광민감성", "주의"],
+    "레티날": ["주름 개선", "탄력 개선", "민감 피부 주의", "주의"],
+    "아데노신": ["주름 개선", "탄력 개선", "특이사항 없음", "안전"],
+    "살리실산": ["각질 제거", "피지 조절", "건조함 유발 가능", "주의"],
+    "글리콜산": ["AHA 성분", "각질 제거", "자극 가능", "주의"],
+    "젖산": ["AHA 성분", "피부 결 개선", "민감 피부 주의", "주의"],
+    "징크옥사이드": ["자외선 차단", "피부 보호", "특이사항 없음", "안전"],
+    "티타늄디옥사이드": ["자외선 차단", "UV 차단", "흡입 주의", "안전"],
+    "옥시벤존": ["화학적 자외선 차단", "UV 흡수", "민감 피부 주의", "주의"],
+    "카페인": ["붓기 완화", "혈액순환 도움", "특이사항 없음", "안전"],
+    "콜라겐": ["보습 성분", "피부 유연화", "효과 제한적", "안전"],
+    "스쿠알란": ["보습제", "피부 유연화", "특이사항 없음", "안전"],
+    "트라넥사믹애씨드": ["미백 성분", "색소 침착 개선", "민감 피부 주의", "주의"]
+};
+
+function searchIngredient() {
+    const input = document.getElementById("searchInput").value.trim();
+    const result = document.getElementById("result");
+
+    if (ingredients[input]) {
+        const [role, effect, caution, level] = ingredients[input];
+
+        result.innerHTML = `
+            <span class="badge ${level === "안전" ? "safe" : "caution"}">${level}</span>
+            <h2>${input}</h2>
+            <p><strong>역할:</strong> ${role}</p>
+            <p><strong>효능:</strong> ${effect}</p>
+            <p><strong>주의사항:</strong> ${caution}</p>
+        `;
+    } else {
+        result.innerHTML = `
+            <h3>검색 결과가 없습니다.</h3>
+            <p>예시 성분: 히알루론산, 나이아신아마이드, 레티놀, 살리실산 등</p>
+        `;
+    }
+}
+</script>
+
+</body>
+</html>
