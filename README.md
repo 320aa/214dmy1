@@ -3,135 +3,230 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>화학 물질 위험도 사전</title>
+<title>화장품 성분 분석기</title>
 
 <style>
-body{
-    font-family: Arial, sans-serif;
-    background:#f4f6f8;
-    text-align:center;
-    padding:30px;
-}
+    body {
+        font-family: "맑은 고딕", sans-serif;
+        margin: 0;
+        background-color: #f4f6f9;
+        color: #333;
+    }
 
-.container{
-    background:white;
-    max-width:700px;
-    margin:auto;
-    padding:25px;
-    border-radius:15px;
-    box-shadow:0 0 10px rgba(0,0,0,0.2);
-}
+    header {
+        background: linear-gradient(135deg, #6aa9ff, #8fd3f4);
+        color: white;
+        text-align: center;
+        padding: 40px 20px;
+    }
 
-input{
-    padding:10px;
-    width:200px;
-    font-size:16px;
-}
+    nav {
+        background-color: #4b79a1;
+        padding: 15px;
+        text-align: center;
+    }
 
-button{
-    padding:10px 15px;
-    font-size:16px;
-    cursor:pointer;
-}
+    nav a {
+        color: white;
+        text-decoration: none;
+        margin: 0 15px;
+        font-weight: bold;
+    }
 
-.result{
-    margin-top:20px;
-    padding:15px;
-    border-radius:10px;
-    background:#eef3f7;
-}
+    section {
+        max-width: 1000px;
+        margin: 30px auto;
+        padding: 30px;
+        background-color: white;
+        border-radius: 15px;
+        box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+    }
+
+    h2 {
+        color: #4b79a1;
+    }
+
+    .search-box {
+        text-align: center;
+        margin: 20px 0;
+    }
+
+    input {
+        width: 60%;
+        padding: 12px;
+        border-radius: 10px;
+        border: 1px solid #ccc;
+        font-size: 16px;
+    }
+
+    button {
+        padding: 12px 20px;
+        border: none;
+        border-radius: 10px;
+        background-color: #4b79a1;
+        color: white;
+        cursor: pointer;
+        font-size: 16px;
+    }
+
+    button:hover {
+        background-color: #355c7d;
+    }
+
+    #result {
+        margin-top: 30px;
+        padding: 20px;
+        border-radius: 12px;
+        background-color: #eef6ff;
+    }
+
+    .ingredient-card {
+        margin: 15px 0;
+        padding: 20px;
+        background-color: #f9fbfd;
+        border-left: 6px solid #6aa9ff;
+        border-radius: 10px;
+    }
+
+    footer {
+        text-align: center;
+        background-color: #4b79a1;
+        color: white;
+        padding: 20px;
+        margin-top: 40px;
+    }
 </style>
 </head>
 
 <body>
 
-<div class="container">
-    <h1>🧪 화학 물질 위험도 사전</h1>
+<header>
+    <h1>🔍 화장품 성분 분석기</h1>
+    <p>화장품 속 성분의 역할과 주의사항을 알아보세요.</p>
+</header>
 
-    <p>화학식을 입력하세요 (예: HCl, NaOH, H₂O)</p>
+<nav>
+    <a href="#about">소개</a>
+    <a href="#search">성분 검색</a>
+    <a href="#info">성분 정보</a>
+</nav>
 
-    <input type="text" id="searchBox" placeholder="화학식 입력">
-    <button onclick="searchChemical()">검색</button>
+<section id="about">
+    <h2>화장품 성분 분석기란?</h2>
 
-    <div class="result" id="result">
-        화학식을 검색해 보세요.
+    <p>
+        우리가 매일 사용하는 화장품에는 다양한 화학 성분이 포함되어 있습니다.
+        이 웹사이트는 주요 화장품 성분의 역할과 주의사항을 쉽게 이해할 수 있도록 제작되었습니다.
+    </p>
+
+    <ul>
+        <li>✔ 보습 성분 알아보기</li>
+        <li>✔ 피부 자극 가능성 확인하기</li>
+        <li>✔ 성분의 역할 이해하기</li>
+    </ul>
+</section>
+
+<section id="search">
+    <h2>성분 검색</h2>
+
+    <div class="search-box">
+        <input type="text" id="ingredientInput"
+               placeholder="예: 히알루론산, 나이아신아마이드">
+        <button onclick="searchIngredient()">검색</button>
     </div>
-</div>
+
+    <div id="result">
+        검색 결과가 여기에 표시됩니다.
+    </div>
+</section>
+
+<section id="info">
+    <h2>대표 성분 예시</h2>
+
+    <div class="ingredient-card">
+        <h3>히알루론산</h3>
+        <p>수분을 끌어당겨 피부 보습을 돕는 성분</p>
+    </div>
+
+    <div class="ingredient-card">
+        <h3>나이아신아마이드</h3>
+        <p>미백 및 피부 장벽 개선에 도움</p>
+    </div>
+
+    <div class="ingredient-card">
+        <h3>살리실산(BHA)</h3>
+        <p>각질 제거와 피지 관리에 사용</p>
+    </div>
+</section>
+
+<footer>
+    <p>고등학교 화학 교과와 연계한 수행평가 프로젝트</p>
+</footer>
 
 <script>
-
-const chemicals = {
-    "HCL": {
-        name:"염산",
-        formula:"HCl",
-        danger:"🔴 높음",
-        hazard:"강산으로 피부와 눈에 화상을 입힐 수 있음",
-        caution:"보호장갑, 보호안경 착용"
+const ingredients = {
+    "히알루론산": {
+        role: "보습 성분",
+        effect: "피부 수분 유지",
+        caution: "특별한 주의사항은 적음"
     },
 
-    "NAOH": {
-        name:"수산화나트륨",
-        formula:"NaOH",
-        danger:"🔴 높음",
-        hazard:"강염기성으로 피부 손상 가능",
-        caution:"직접 접촉 금지"
+    "나이아신아마이드": {
+        role: "미백 기능성 성분",
+        effect: "피부 톤 개선, 장벽 강화",
+        caution: "민감성 피부는 고농도 사용 시 자극 가능"
     },
 
-    "C2H5OH": {
-        name:"에탄올",
-        formula:"C₂H₅OH",
-        danger:"🟡 중간",
-        hazard:"인화성이 높음",
-        caution:"화기 근처 사용 금지"
+    "살리실산": {
+        role: "각질 제거 성분",
+        effect: "피지 조절 및 여드름 관리",
+        caution: "건조함이나 자극이 나타날 수 있음"
     },
 
-    "H2O2": {
-        name:"과산화수소",
-        formula:"H₂O₂",
-        danger:"🟡 중간",
-        hazard:"고농도에서 피부 자극",
-        caution:"눈 접촉 주의"
+    "글리세린": {
+        role: "보습제",
+        effect: "수분 증발 방지",
+        caution: "과다 사용 시 끈적임 발생 가능"
     },
 
-    "H2O": {
-        name:"물",
-        formula:"H₂O",
-        danger:"🟢 낮음",
-        hazard:"일반 사용 시 위험 없음",
-        caution:"특별한 주의사항 없음"
+    "비타민C": {
+        role: "항산화 성분",
+        effect: "피부 톤 개선 및 색소 침착 완화",
+        caution: "민감성 피부는 따가움을 느낄 수 있음"
     }
 };
 
-function searchChemical(){
+function searchIngredient() {
+    const input =
+        document.getElementById("ingredientInput").value.trim();
 
-    let input = document
-        .getElementById("searchBox")
-        .value
-        .toUpperCase()
-        .replaceAll("₂","2")
-        .replaceAll("₅","5");
+    const result =
+        document.getElementById("result");
 
-    const result = document.getElementById("result");
-
-    if(chemicals[input]){
-        const info = chemicals[input];
+    if (ingredients[input]) {
 
         result.innerHTML = `
-        <h2>${info.name}</h2>
-        <p><b>화학식:</b> ${info.formula}</p>
-        <p><b>위험도:</b> ${info.danger}</p>
-        <p><b>위험성:</b> ${info.hazard}</p>
-        <p><b>주의사항:</b> ${info.caution}</p>
+            <h3>${input}</h3>
+
+            <p><strong>역할:</strong>
+            ${ingredients[input].role}</p>
+
+            <p><strong>효능:</strong>
+            ${ingredients[input].effect}</p>
+
+            <p><strong>주의사항:</strong>
+            ${ingredients[input].caution}</p>
         `;
-    }
-    else{
+
+    } else {
+
         result.innerHTML = `
-        <h2>검색 결과 없음</h2>
-        <p>등록되지 않은 화학 물질입니다.</p>
+            <p>해당 성분 정보가 없습니다.</p>
+            <p>예시: 히알루론산, 나이아신아마이드,
+            살리실산, 글리세린, 비타민C</p>
         `;
     }
 }
-
 </script>
 
 </body>
